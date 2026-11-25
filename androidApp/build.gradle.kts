@@ -1,0 +1,66 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
+plugins {
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.compose.compiler)
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.fromTarget(BuildVersion.environment.jvmTarget)
+    }
+    dependencies {
+        implementation(projects.shared.presentation.ui)
+        implementation(projects.shared.core.common)
+        implementation(project.dependencies.platform(libs.compose.bom))
+        implementation(libs.compose.foundation)
+        implementation(libs.compose.ui)
+        implementation(libs.compose.runtime.android)
+        implementation(libs.compose.material3)
+        implementation(libs.compose.multiplatform.ui.tooling.preview)
+        implementation(libs.androidx.activityCompose)
+        implementation(libs.bundles.android.core)
+        debugImplementation(libs.compose.uitooling)
+    }
+}
+
+android {
+    namespace = BuildVersion.environment.applicationId
+    compileSdk {
+        version = release(BuildVersion.android.compileSdk) {
+            minorApiLevel = BuildVersion.android.compileSdkMinor
+        }
+    }
+    defaultConfig {
+        minSdk = BuildVersion.android.minSdk
+        applicationId = BuildVersion.environment.applicationId
+        versionCode = BuildVersion.environment.appVersion
+        versionName = BuildVersion.environment.appVersionCode
+    }
+    buildFeatures {
+        compose = true
+    }
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
+    buildTypes {
+        getByName("release") {
+            isMinifyEnabled = false
+        }
+    }
+    compileOptions {
+        sourceCompatibility = BuildVersion.environment.javaVersion
+        targetCompatibility = BuildVersion.environment.javaVersion
+    }
+}
+
+configurations.configureEach {
+    exclude(group = "androidx.constraintlayout", module = "constraintlayout-core")
+}
+
+tasks.register("testClasses") {
+    println("Dummy classes")
+}

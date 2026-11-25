@@ -1,0 +1,179 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "196bc3e23ef550f96efb0964de3419cb",
+    "entities": [
+      {
+        "tableName": "example_entities",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `description` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "cached_aircraft_summary",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`icaoTypeCode` TEXT NOT NULL, `iataTypeCode` TEXT, `manufacturer` TEXT, `model` TEXT, `name` TEXT NOT NULL, `category` TEXT NOT NULL, `photoUrl` TEXT, `photoAuthor` TEXT, `firstFlightYear` INTEGER, `engineCount` INTEGER, `engineType` TEXT, `wakeTurbulenceCategory` TEXT, `maxPassengers` INTEGER, `cruiseSpeedKt` INTEGER, `maxSpeedKt` INTEGER, `rangeNm` INTEGER, `rangeKm` INTEGER, `updatedAtMs` INTEGER NOT NULL, PRIMARY KEY(`icaoTypeCode`))",
+        "fields": [
+          {
+            "fieldPath": "icaoTypeCode",
+            "columnName": "icaoTypeCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "iataTypeCode",
+            "columnName": "iataTypeCode",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "manufacturer",
+            "columnName": "manufacturer",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "model",
+            "columnName": "model",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "category",
+            "columnName": "category",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "photoUrl",
+            "columnName": "photoUrl",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "photoAuthor",
+            "columnName": "photoAuthor",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "firstFlightYear",
+            "columnName": "firstFlightYear",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "engineCount",
+            "columnName": "engineCount",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "engineType",
+            "columnName": "engineType",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "wakeTurbulenceCategory",
+            "columnName": "wakeTurbulenceCategory",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "maxPassengers",
+            "columnName": "maxPassengers",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "cruiseSpeedKt",
+            "columnName": "cruiseSpeedKt",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "maxSpeedKt",
+            "columnName": "maxSpeedKt",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "rangeNm",
+            "columnName": "rangeNm",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "rangeKm",
+            "columnName": "rangeKm",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "updatedAtMs",
+            "columnName": "updatedAtMs",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "icaoTypeCode"
+          ]
+        }
+      },
+      {
+        "tableName": "cached_aircraft_detail",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`icaoTypeCode` TEXT NOT NULL, `payloadJson` TEXT NOT NULL, `updatedAtMs` INTEGER NOT NULL, PRIMARY KEY(`icaoTypeCode`))",
+        "fields": [
+          {
+            "fieldPath": "icaoTypeCode",
+            "columnName": "icaoTypeCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "payloadJson",
+            "columnName": "payloadJson",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAtMs",
+            "columnName": "updatedAtMs",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "icaoTypeCode"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '196bc3e23ef550f96efb0964de3419cb')"
+    ]
+  }
+}
